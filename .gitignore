@@ -161,3 +161,5 @@ cython_debug/
 
 .DS_Store
 myenv/
+PDF/
+API_key.txt
