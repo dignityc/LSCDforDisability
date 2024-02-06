@@ -12,7 +12,7 @@ def extract_text_from_image(image):
     return pytesseract.image_to_string(image)
 
 # Convert PDF to images
-images = convert_from_path('PDF/sample.pdf')
+images = convert_from_path('PDF/Sample.pdf')
 
 # Extract text from each image
 for i, image in enumerate(images):
