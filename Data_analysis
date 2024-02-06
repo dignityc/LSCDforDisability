@@ -10,7 +10,7 @@ import ast
 
 path = 'datasets/keyword_filtered'
 file_list = os.listdir(path)
-subreddit = 'Disability'
+subreddit = 'Blind'
 sample_cutoff_value = 10
 
 #merging sets into a single dataframe for a subreddit

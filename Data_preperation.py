@@ -16,7 +16,7 @@ tqdm.pandas(desc="My Progress Bar")
 file_path = "addrec/anonymized_dataset/"
 subreddit = ['ADHD','Blind','Disability']
 
-""" 
+
 #Consolidate as a single .csv for each subreddit
 for s in subreddit:
     year_list = os.listdir(file_path+s)
@@ -61,7 +61,7 @@ for s in subreddit:
     df['anonymized_body'].fillna(0, inplace=True)
     df['anonymized_body_lemmatized'] = df['anonymized_body'].progress_apply(lemmatize_text)
     df.to_csv(f'datasets/{s}_lemma.csv', index=False)
-"""
+
 
 #Reaading & filtering keyword 
 keywords = []
