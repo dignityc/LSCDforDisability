@@ -108,3 +108,267 @@ Stay-at-home
 Hard for the person to get out
 Person with Alzheimer’s disease
 Person who has dementia
+disable
+unsound
+mental health
+disfigure
+neurodiver
+deaf
+blind
+awareness day
+accessib
+ADA
+retard
+idiot
+handicap autis
+eugenic
+convalescent
+invalid
+dumb
+Blind
+Visually Impairment
+Dumb
+Invalid
+Blind
+Visually Impaired
+Person who is blind
+visually impaired
+Deaf
+Hearing Impairment
+Invalid
+Deaf-and-Dumb
+Deaf-Mute
+Deaf
+Hard-of-hearing
+Person who is deaf
+hard of hearing
+Speech
+Communication Disability
+Dumb
+One who talks bad
+Person with a speech
+communication disability
+Learning Disability
+Retarded
+Slow
+Brain-Damaged
+Special ed
+Learning disability
+Cognitive disability
+Person with a learning
+cognitive disability
+Mental Health Disability
+Hyper-sensitive
+Psycho
+Crazy
+Insane
+Wacko
+Nuts
+Person with a psychiatric disability
+Person with a mental health disability
+Mobility
+Physical Disability
+Handicapped
+Physically Challenged
+Special
+Deformed
+Cripple
+Gimp
+Spastic
+Spaz
+Wheelchair-bound
+Lame
+Ableism  
+Access  
+Audism  
+Black Disability Studies  
+Bodymind  
+Crip  
+Crip theory  
+Crip time  
+Disability  
+(Dis)Ability  
+Disability Justice Movement  
+Pedagogy  
+Supercrip  
+Feminist Disability Studies  
+Inclusive Design  
+Intersectionality  
+Mad Studies  
+Models of Disability  
+Moral  
+Charity  
+Biomedical / Medical  
+Rehab Model  
+Social Model  
+Political / Relational  
+Neurodiversity and Neurodivergence  
+Post Colonial Disability Studies  
+Sanism
+ADHD
+ADSHE
+ASASA
+Ability
+Aptitude
+Assessment
+Assessment of Need
+AtW
+Auditory short-term memory
+Belonging
+BSL
+CEDAG
+Cognitive Style
+Cognitive functioning
+Compensatory strategies
+Comprehension
+DDA
+DELNI
+DMAG
+DPO
+DRC
+DSA
+DSA-QAG
+DSA1 Form
+Decoding
+Diagnosis
+Diagnostic Assessors
+Digit Span
+Digit Symbol Coding
+Disability
+Disablement
+Diversity
+Dyscalculia
+Dysgraphia
+Dyslexia
+Dysphasia
+Dyspraxia
+End-user
+Equality Act 2010
+HE
+HEAG
+HEFCE
+HEI
+HESA
+HTML
+Hemispheres
+Hereditary
+ILTHE
+Inclusion
+Intersectionality
+IQ Test
+JISC
+LTSN
+Learning Style
+Lived experience
+MIND
+Meares-Irlen Syndrome
+NADP
+NCTD
+NDT
+NHSBSA
+NUS
+Neurodiversity
+Neurological
+OU
+Open Source
+PAS 78
+Percentile rank
+Perception
+Performance IQ
+Phonological awareness
+Profile
+Protected characteristics
+Psychometric test
+QAA
+RNIB
+RNID
+Reading age
+Reasonable Adjustments
+SAASSAAS
+SAMH
+SENDA
+SFC
+SFE
+SFEFC
+SHEFC
+SKILL
+SLC
+Scotopic Sensitivity
+Sequencing skills
+Short-term memory
+Social model
+SpLD
+Speed of information processing
+Standardised
+Studen
+Accessible
+Access barriers
+Accessible web design
+Accommodation
+Adaptive technology
+ALT attribute
+Alternative keyboard
+Americans with Disabilities Act of 1990 (ADA)
+American Standard Code for Information Interchange (ASCII)
+Applet
+Assistive technology
+Braille
+Captioned film or videos
+Captioning
+Closed Circuit TV Magnifier (CCTV)
+Communication device
+Comorbidity
+Compensatory tools
+Curriculum Compacting
+Differentiated Instruction
+Disability
+Fingerspelling
+FM Sound Amplification System
+Hearing impairments
+Impairment
+Individual Education Plan (IEP)
+Input
+Interpreter
+Joystick
+Keyboard emulation
+Keyguard
+Large print books
+Least Restrictive Environment (LRE)
+Mainstreaming, Inclusion
+Major life activities
+Mobility impairment
+Modification
+Mouse emulation
+Multimedia
+Onscreen keyboard
+Optical character recognition (OCR)
+Output
+Peripheral neuropathy
+Physical or mental impairment
+Qualified individual with a disability
+Reader
+Reading system
+Refreshable Braille Display
+Repetitive Stress Injury (RSI)
+Response to Intervention (RtI)
+Scanning input
+Screen enlargement
+Screen reader
+Screen resolution
+Sensory impairment
+Sign language
+Specific Learning Disability
+Speech impairment
+Speech input or speech recognition
+Strength-Based Approach
+Switch input
+Telecommunications Device for the Deaf (TDD) or Teletypewriter (TTY)
+Trackball
+Traumatic Brain Injury (TBI)
+Twice Exceptional
+Universal design
+Universal Design for Learning
+Vocational Rehabilitation Act of 1973
+Virtual keyboard
+Vision impairments
+Word prediction

@@ -6,15 +6,17 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus.reader.wordnet import NOUN, VERB, ADJ, ADV
 from nltk import pos_tag
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.decomposition import TruncatedSVD
-from sklearn.pipeline import Pipeline
+
 import numpy as np
+from tqdm import tqdm
+import ast
+tqdm.pandas(desc="My Progress Bar")
 
 
 file_path = "addrec/anonymized_dataset/"
 subreddit = ['ADHD','Blind','Disability']
 
+""" 
 #Consolidate as a single .csv for each subreddit
 for s in subreddit:
     year_list = os.listdir(file_path+s)
@@ -25,7 +27,7 @@ for s in subreddit:
             df = pd.concat([df, pd.read_csv(file_path+s+'/'+y+'/'+f)])
             
     df.reset_index(inplace=True)
-    df.to_csv(f'datasets/{s}', index=False)
+    df.to_csv(f'datasets/{s}.csv', index=False)
 
 #Tokenizer & lemmatization
 nltk.download('punkt')
@@ -47,64 +49,51 @@ def get_wordnet_pos(treebank_tag):
     else:  
         return NOUN
 def lemmatize_text(text):
-    tokens = word_tokenize(text)
-    tagged_tokens = pos_tag(tokens)
-    lemmatized_tokens = [lemmatizer.lemmatize(word, get_wordnet_pos(tag)) for word, tag in tagged_tokens]
-    return lemmatized_tokens
+    try:
+        tokens = word_tokenize(text)
+        tagged_tokens = pos_tag(tokens)
+        lemmatized_tokens = [lemmatizer.lemmatize(word, get_wordnet_pos(tag)) for word, tag in tagged_tokens]
+        return lemmatized_tokens
+    except (TypeError, ValueError):
+        return ''
 for s in subreddit:
-    s = 'Disability'
     df = pd.read_csv(f'datasets/{s}.csv')
-    df['anonymized_body_lemmatized'] = df['anonymized_body'].apply(lemmatize_text)
-    break
+    df['anonymized_body'].fillna(0, inplace=True)
+    df['anonymized_body_lemmatized'] = df['anonymized_body'].progress_apply(lemmatize_text)
+    df.to_csv(f'datasets/{s}_lemma.csv', index=False)
+"""
+
+#Reaading & filtering keyword 
+keywords = []
+keyword_path = "Keywords.txt"
+with open(keyword_path, 'r') as file:
+    for line in file:
+        keywords.append(line.strip())
+filtered_list = [word for word in keywords if len(word.split()) < 2]
+filtered_list = list(set(filtered_list))
 
 #keyword-based filtering
-keyword = 'dumb'
 def contains_keyword(tokens, keyword):
     keyword_lower = keyword.lower()
     return any(keyword_lower in token.lower() for token in tokens)
-filtered_df = df[df['anonymized_body_lemmatized'].apply(lambda tokens: contains_keyword(tokens, keyword))]
+def safe_literal_eval(value):
+    try:
+        return ast.literal_eval(value)
+    except (ValueError, SyntaxError):
+        return []  
+for s in subreddit:
+    s ='Disability'
+    df = pd.read_csv(f'datasets/{s}_lemma.csv')
+    df['anonymized_body_lemmatized'].fillna('', inplace=True)
+    tqdm.pandas(desc="listfy")
+    df['anonymized_body_lemmatized'] = df['anonymized_body_lemmatized'].progress_apply(safe_literal_eval)
+    for k in tqdm(filtered_list):
+        keyword = k
+        filtered_df = df[df['anonymized_body_lemmatized'].apply(lambda tokens: keyword.lower() in [token.lower() for token in tokens])]
+        if len(filtered_df) >=1:
+            filtered_df.to_csv(f'datasets/keyword_filtered/{s}_lemma_{k}.csv', index=False)
+        else:
+            pass
+    break
+        
 
-
-#LSA 
-filtered_df['anonymized_body_stringfied'] = filtered_df['anonymized_body_lemmatized'].apply(lambda x: ' '.join(x))
-
-tfidf_vectorizer = TfidfVectorizer(max_features=100, stop_words='english')
-svd_model = TruncatedSVD(n_components=5, algorithm='randomized', n_iter=100, random_state=122)
-
-lsa_pipeline = Pipeline([
-    ('tfidf', tfidf_vectorizer),
-    ('svd', svd_model)
-])
-
-lsa_matrix = lsa_pipeline.fit_transform(filtered_df['anonymized_body_stringfied'])
-
-#print("LSA Topic Matrix:")
-#print(lsa_matrix)
-
-print("\nTopic Word Weights:")
-feature_names = tfidf_vectorizer.get_feature_names_out()
-for i, topic in enumerate(svd_model.components_):
-    print(f"Topic {i}:")
-    print([feature_names[index] for index in topic.argsort()[:-6:-1]])
-    print(np.sort(topic)[:-6:-1])
-
-
-#word embedding-based simliarty
-from gensim.models import Word2Vec
-from gensim.models.keyedvectors import KeyedVectors
-import pandas as pd
-
-
-model = Word2Vec(vector_size=100, min_count=1)
-model.build_vocab(df['anonymized_body_lemmatized'])
-model.train(df['anonymized_body_lemmatized'], total_examples=model.corpus_count, epochs=model.epochs)
-
-word1 = 'dumb'
-similarities = {word: model.wv.similarity(word1, word) 
-                for word in model.wv.index_to_key if word != word1}
-
-sorted_similarities = sorted(similarities.items(), key=lambda x: x[1], reverse=True)
-
-N = 10  
-for word, similarity in sorted_similarities[:N]:
-    print(f"Similarity between '{word1}' and '{word}': {similarity:.4f}")
