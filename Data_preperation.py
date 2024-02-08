@@ -64,13 +64,12 @@ for s in subreddit:
 
 
 #Reaading & filtering keyword 
-keywords = []
-keyword_path = "Keywords.txt"
-with open(keyword_path, 'r') as file:
-    for line in file:
-        keywords.append(line.strip())
-filtered_list = [word for word in keywords if len(word.split()) < 2]
-filtered_list = list(set(filtered_list))
+new_keywords = pd.read_csv('NewKeywords.csv', header=None)
+path = 'datasets/keyword_filtered/'
+file_list = os.listdir(path)
+keywords = list(new_keywords[0])
+filtered_list = list(set([word.lower() for word in keywords]))
+
 
 #keyword-based filtering
 def contains_keyword(tokens, keyword):
@@ -82,7 +81,6 @@ def safe_literal_eval(value):
     except (ValueError, SyntaxError):
         return []  
 for s in subreddit:
-    s ='Disability'
     df = pd.read_csv(f'datasets/{s}_lemma.csv')
     df['anonymized_body_lemmatized'].fillna('', inplace=True)
     tqdm.pandas(desc="listfy")
@@ -94,6 +92,29 @@ for s in subreddit:
             filtered_df.to_csv(f'datasets/keyword_filtered/{s}_lemma_{k}.csv', index=False)
         else:
             pass
-    break
-        
 
+
+#update datasets with new keywords set.
+new_keywords = pd.read_csv('NewKeywords.csv', header=None)
+new_keywords[0] = new_keywords[0].str.lower()
+path = 'datasets/keyword_filtered/'
+file_list = os.listdir(path)
+keywords = list(new_keywords[0])
+keywords = list(set([word.lower() for word in keywords]))
+newFilePath = []
+for f in file_list:
+    word = f.split('_')[-1].split('.')[0]
+    if word in keywords:
+        newFilePath.append(f'{f.split(".")[0]}_{str(new_keywords[new_keywords[0]==word][1].values[0])}.csv')
+    
+        
+import shutil
+for f in newFilePath:
+    source = f'datasets/keyword_filtered/{f[:-6]}.csv'
+    destination = f'datasets/Newkeyword_filtered/{f}'
+    shutil.move(source, destination)
+
+    
+with open('NewKeywords', 'w') as f:
+    for item in keywords:
+        f.write('%s\n' % item)

@@ -13,12 +13,12 @@ from collections import Counter
 
 
 path = 'datasets/'
-subreddit = 'Blind'
+subreddit = 'ADHD'
 n_components=10
 
 #merging sets into a single dataframe for a subreddit
 df = pd.read_csv(f"{path}{subreddit}_lemma.csv")
-
+df['anonymized_body_lemmatized'] = df['anonymized_body_lemmatized'].fillna('[]')
 #LSA 
 def LSA(df, n_components, filtered_list):
     df['anonymized_body_stringfied'] = df['anonymized_body_lemmatized'].apply(ast.literal_eval)
@@ -80,7 +80,7 @@ sim_matrix2 = LSA(df_second_half, 10, filtered_list)
 
 key_set = list(set(sim_matrix1.columns) & set(sim_matrix2.columns))
 
-top_n = 60
+top_n = 20
 sorted_series = sorted_series[sorted_series.index.isin(key_set)]
 top_values = sorted_series.head(top_n).keys()
 
