@@ -94,7 +94,7 @@ for s in subreddit:
             pass
 
 
-#update datasets with new keywords set.
+#Move datasets new folders and annotation with sentiment
 new_keywords = pd.read_csv('NewKeywords.csv', header=None)
 new_keywords[0] = new_keywords[0].str.lower()
 path = 'datasets/keyword_filtered/'
@@ -118,3 +118,37 @@ for f in newFilePath:
 with open('NewKeywords', 'w') as f:
     for item in keywords:
         f.write('%s\n' % item)
+
+
+#Merge keyword-filtered sets for all keywords to three subreddits
+file_path = "datasets/Newkeyword_filtered/"
+file_list = os.listdir(file_path)
+adhd = pd.DataFrame()
+blind = pd.DataFrame()
+disability = pd.DataFrame()
+
+for f in tqdm(file_list):
+    reading = pd.read_csv(f'datasets/Newkeyword_filtered/{f}')
+    #input keyword column
+    keyword = f.split('_')[2]
+    reading['keyword'] = keyword
+    #input sentiment column
+    sentiment = f.split('_')[3][0]
+    reading['sentiment'] = sentiment
+
+    subreddit = f.split('_')[0]
+    if subreddit == 'ADHD':
+        adhd = pd.concat([adhd, reading], axis=0)
+    elif subreddit == 'Blind':
+        blind = pd.concat([blind, reading], axis=0)
+    elif subreddit == 'Disability':
+        disability = pd.concat([disability, reading], axis=0)
+
+adhd = adhd.drop(columns=['index'])
+blind = blind.drop(columns=['index'])
+disability = disability.drop(columns=['index'])
+
+adhd.to_csv('datasets/ADHD_merged_for_all_keywords.csv', index=False)
+blind.to_csv('datasets/Blind_merged_for_all_keywords.csv', index=False)
+disability.to_csv('datasets/Disability_merged_for_all_keywords.csv', index=False)
+
