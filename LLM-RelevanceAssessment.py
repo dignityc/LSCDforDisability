@@ -15,7 +15,7 @@ base_model_name = f"meta-llama/{model_name}-chat-hf"
 model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map='cuda', load_in_8bit=True)
 tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
-dataset = 'Blind'
+dataset = 'ADHD'
 original_df = pd.read_csv(f'datasets/2nd_filtering/{dataset}_post_sentiment.csv')
 df = original_df[original_df['sentiment']==1].copy().reset_index(drop=True)
 
@@ -48,4 +48,5 @@ for index, row in tqdm(df.iterrows(), total=df.shape[0]):
 binary_result = [1 if 'Relevant' in result else 0 for result in classification_result]
 r_df = df.loc[:(len(classification_result)-1)].copy()
 r_df['Relevance'] = binary_result
+r_df = r_df.drop(columns=['Unnamed: 0', 'index'])
 r_df.to_csv(f'datasets/2nd_filtering/{dataset}_relevance.csv')

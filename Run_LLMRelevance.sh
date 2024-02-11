@@ -2,6 +2,6 @@
 #SBATCH --output=/scratch/users/%u/log.out
 #SBATCH --job-name=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --constraint=a100_80g
+#SBATCH --constraint=a100
 
 python LLM-RelevanceAssessment.py 
