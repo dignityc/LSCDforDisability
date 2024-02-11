@@ -12,15 +12,15 @@ from transformers.pipelines.pt_utils import KeyDataset
 model_name = 'Llama-2-13b'
 base_model_name = f"meta-llama/{model_name}-chat-hf"
 
-model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map='cuda')
+model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map='cuda', load_in_8bit=True)
 tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
-dataset = 'ADHD'
-original_df = pd.read_csv(f'datasets/{dataset}_merged_for_all_keywords.csv')
+dataset = 'Blind'
+original_df = pd.read_csv(f'datasets/2nd_filtering/{dataset}_post_sentiment.csv')
 df = original_df[original_df['sentiment']==1].copy().reset_index(drop=True)
 
 # Load the model pipeline
-pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=1024, temperature=0.1,repetition_penalty=1.19)
+pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=2048, temperature=0.1,repetition_penalty=1.19)
 #repetition_penalty=1.19
 
 # generate text
