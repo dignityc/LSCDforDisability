@@ -43,7 +43,6 @@ for d in datasets:
 
 df = df.reset_index(drop=True)   
 
-login(token='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')
 
 # generate text
 original_df = df.copy()
