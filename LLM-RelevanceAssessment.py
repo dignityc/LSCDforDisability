@@ -12,10 +12,10 @@ from transformers.pipelines.pt_utils import KeyDataset
 model_name = 'Llama-2-13b'
 base_model_name = f"meta-llama/{model_name}-chat-hf"
 
-model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map='cuda', load_in_8bit=True)
+model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map='cuda:0', load_in_8bit=True)
 tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
-dataset = 'ADHD'
+dataset = 'Blind'
 original_df = pd.read_csv(f'datasets/2nd_filtering/{dataset}_post_sentiment.csv')
 df = original_df[original_df['sentiment']==1].copy().reset_index(drop=True)
 
@@ -49,4 +49,4 @@ binary_result = [1 if 'Relevant' in result else 0 for result in classification_r
 r_df = df.loc[:(len(classification_result)-1)].copy()
 r_df['Relevance'] = binary_result
 r_df = r_df.drop(columns=['Unnamed: 0', 'index'])
-r_df.to_csv(f'datasets/2nd_filtering/{dataset}_relevance.csv')
+#r_df.to_csv(f'datasets/2nd_filtering/{dataset}_relevance.csv')
